@@ -15,7 +15,7 @@ class addon_recaptcha extends flux_addon
     {
         global $pun_config;
 
-        return !empty($pun_config['recaptcha_site_key']) && !empty($pun_config['recaptcha_secret_key']);
+        return !empty($pun_config['recaptcha_site_key']) && !empty($pun_config['recaptcha_secret_key']) && !empty($pun_config['captcha_type']);
     }
 
     function hook_register_after_validation()
@@ -91,7 +91,7 @@ class addon_recaptcha extends flux_addon
         $response = file_get_contents($url);
 
         if ($response === false)
-            throw new Exception('Cannot validate reCAPTCHA submission.');
+            throw new Exception('Cannot validate reCAPTCHA submission!');
 
         return $response;
     }

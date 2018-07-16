@@ -19,8 +19,9 @@ if (isset($_POST['process_form']))
 {
     $site_key = isset($_POST['recaptcha_site_key']) ? pun_trim($_POST['recaptcha_site_key']) : '';
     $secret_key = isset($_POST['recaptcha_secret_key']) ? pun_trim($_POST['recaptcha_secret_key']) : '';
+    $captcha_type = isset($_POST['captcha_type']) ? pun_trim($_POST['captcha_type']) : '';
 
-    foreach (compact('site_key', 'secret_key') as $key => $value)
+    foreach (compact('site_key', 'secret_key', 'captcha_type') as $key => $value)
     {
         $key = 'recaptcha_'.$key;
 
@@ -67,6 +68,15 @@ generate_admin_menu($plugin);
                                 <th scope="row">Secret key</th>
                                 <td>
                                     <input type="text" name="recaptcha_secret_key" size="40" value="<?php if (!empty($pun_config['recaptcha_secret_key'])) echo pun_htmlspecialchars($pun_config['recaptcha_secret_key']); ?>" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">CAPTCHA Type</th>
+                                <td>
+                                    <select name="captcha_type">
+                                        <option value="recaptcha" <?php if ($pun_config['captcha_type' == 'recaptcha'] ) echo 'selected'; ?>>reCAPTCHA</option>
+                                        <option value="invisible_nocaptcha" <?php if ($pun_config['captcha_type' == 'invisible_nocaptcha']) echo 'selected'; ?>>Invisible NoCaptcha</option>
+                                    </select>
                                 </td>
                             </tr>
                         </table>
